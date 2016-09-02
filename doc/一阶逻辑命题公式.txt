@@ -1,0 +1,31 @@
+﻿词法设计:
+lowercase -> [a-z]
+capital -> [A-Z]
+digit -> [0-9]
+variable -> lowercase(lowercase|digit)*
+predicate -> capital(lowercase|digit)*
+op_leftbacket -> (
+op_rightbacket ->)
+op_negation -> ~
+op_compare -> <|>|<=|>=|==|!=
+op_math ->　+|-|*|/
+op_quantifer -> $|#
+op_connectives1 -> &||
+op_connectives2 -> ->|<->
+语法设计:
+term->variable op_math variable|variable
+form0 -> predicate(term{,term})|digit op_compare digit
+form1 -> ~form0|op_quantifer variable form0|(form0)
+form2 -> form2 op_connectives1 form2|form1
+form3->from3 op_connectives2 form3|form2
+
+
+测试：
+p+a1+a2
+A1(a1+a2,a3+a4)
+1>2<3
+~A1(a1+a2,a3+a4)
+#a1A1(a1+a2,a3+a4)
+(A1(a1+a2,a3+a4))
+#a1A1(a1+a2,a3+a4)&#a1A1(a1+a2,a3+a4)
+#a1A1(a1+a2,a3+a4)&#a1A1(a1+a2,a3+a4)->#a1A1(a1+a2,a3+a4)&#a1A1(a1+a2,a3+a4)
